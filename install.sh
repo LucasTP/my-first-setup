@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 # Check package was installed
 function is_installed {
@@ -30,10 +30,6 @@ function install_packages {
     xcode-select --install
 
     # --- Homebrew ---
-    if [ "$(is_installed brew)" == "1"]; then
-        echo "Homebrew was installed. Skipped..."
-    fi
-
     if [ "$(is_installed brew)" == "0"]; then
         echo "Installing Homebrew"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -43,20 +39,12 @@ function install_packages {
 
     # --- iTerm2 ---
     if [ ! -d "/Applications/iTerm.app"]; then
-        echo "iTerm2 was installed. Skipped..."
-    fi
-
-    if [ ! -d "/Applications/iTerm.app"]; then
         echo "Installing iTerm2"
         brew tap homebrew/cask
-        brew install itermm2 --cask
+        brew install iterm2 --cask
     fi
 
     # --- oh-my-zsh ---
-    if [ -d ~/.oh-my-zsh ]; then
-        echo "Oh-my-zsh was installed. Skipped..."
-    fi
-
     if [ ! -d ~/.oh-my-zsh ]; then
         echo "Installing oh-my-zsh"
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -162,8 +150,8 @@ while test $# -gt 0; do
       ;;
     --macos)
       install_packages
-      backup
-      link_dotfiles
+      #backup
+      #link_dotfiles
       zsh
       source ~/.zshrc
       exit
